@@ -1,0 +1,15 @@
+data = [
+    {"name": "Havoc", "attack": 4000, "defense": 1000, "speed": 800, "type": "Shadow"},
+    {"name": "Umbra", "attack": 4000, "defense": 3000, "speed": 600, "type": "Shadow"},
+    {"name": "Behemoth", "attack": 2000, "defense": 4000, "speed": 200, "type": "Giant"},
+    {"name": "Specter", "attack": 3500, "defense": 2500, "speed": 1000, "type": "Ghost"},
+    {"name": "Ragnarok", "attack": 6000, "defense": 3000, "speed": 200, "type": "Divine"},
+    {"name": "Vex", "attack": 3500, "defense": 3000, "speed": 900, "type": "Misery"},
+    {"name": "Calamity", "attack": 4000, "defense": 2000, "speed": 700, "type": "Disaster"},
+    {"name": "Chimera", "attack": 5000, "defense": 4000, "speed": 500, "type": "Hybrid"},
+    {"name": "Abyssus", "attack": 4500, "defense": 2500, "speed": 600, "type": "Dark"},
+    {"name": "Cryptic", "attack": 2500, "defense": 2500, "speed": 800, "type": "Mystery"},
+    {"name": "Voidwalker", "attack": 3500, "defense": 3500, "speed": 1000, "type": "Shadow"},
+    {"name": "Havoc", "attack": 4000, "defense": 1000, "speed": 800, "type": "Shadow"},
+    {"name": "Umbra", "attack": 4000, "defense": 3000, "speed": 600, "type": "Shadow"},    
+]
