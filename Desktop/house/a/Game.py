@@ -1,14 +1,14 @@
 from Monster import Monster
-from data import data
 import random
 import time
 from os import system
 from sys import platform
-
+from monster_generator import MonsterGenerator
 
 class Game:
     def __init__(self):
-        self.cards = [Monster(**card) for card in data]
+        self.data = MonsterGenerator().generate_monsters(50)
+        self.cards = [Monster(**card) for card in self.data]
         random.shuffle(self.cards) 
         print(self.cards)
         self.card_names = [f"ID{i}" for i in range(1, 51)]
@@ -23,8 +23,8 @@ class Game:
 
         self.player_life = 10000 #lifepoints
         self.bot_life = 10000
-        self.self.player_field = [] #create field
-        self.self.bot_field = []
+        self.player_field = [] #create field
+        self.bot_field = []
         self.dice = 1
         self.optionG = ["gamble", "Gamble"]
         self.optionD = ["draw", "Draw"]
@@ -33,7 +33,7 @@ class Game:
         self.optionI = ["info", "Info"]
 
         self.player_speed = self.player_hand[0].speed + self.player_hand[1].speed + self.player_hand[2].speed + self.player_hand[3].speed + self.player_hand[4].speed
-        self.average_self.player_speed = self.player_speed / 5 #average speed of player #used to calculate which user starts first (user with faster average hand starts first)
+        self.average_player_speed = self.player_speed / 5 #average speed of player #used to calculate which user starts first (user with faster average hand starts first)
 
         self.bot_speed = self.bot_hand[0].speed + self.bot_hand[1].speed + self.bot_hand[2].speed + self.bot_hand[3].speed + self.bot_hand[4].speed
         self.average_bot_speed = self.bot_speed / 5 #average speed of bot
@@ -48,8 +48,8 @@ class Game:
         bot_alive = [card.name for card in self.bot_field]
         self.clear_screen()
         print("playerGameStatus:")
-        print("Your HP: " + str(player_life))
-        print("Opponent's HP: " + str(bot_life))
+        print("Your HP: " + str(self.player_life))
+        print("Opponent's HP: " + str(self.bot_life))
         print("Your hand: " + ", ".join(names))
         print("Your field: " + ", ".join(player_alive))
         print("Opponent's field: " + ", ".join(bot_alive))
@@ -65,8 +65,8 @@ class Game:
         bot_alive = [card.name for card in self.bot_field]
         self.clear_screen()
         print("playerGameStatus:")
-        print("Your HP: " + str(player_life))
-        print("Opponent's HP: " + str(bot_life))
+        print("Your HP: " + str(self.player_life))
+        print("Opponent's HP: " + str(self.bot_life))
         print("Your hand: " + ", ".join(names))
         print("Your field: " + ", ".join(player_alive))
         print("Opponent's field: " + ", ".join(bot_alive))
@@ -84,19 +84,19 @@ class Game:
             print("No self.dice left!")
         if self.dice >= 1:
             self.dice = self.dice - 1
-            global player_life
-            global bot_life
+            self.player_life
+            self.bot_life
             decision = random.randint(1, 6)
             if decision == 1:
                 dmg = [1000, 2000, 3000, 4000]
                 dmg_chosen = random.choice(dmg)
-                player_life = player_life - dmg_chosen
+                self.player_life = self.player_life - dmg_chosen
                 self.playerGameStatus()
                 print("You've shot yourself in the foot and lost " + str(dmg_chosen) + " HP.")
             if decision == 2:
                 dmg = [1000, 2000]
                 dmg_chosen = random.choice(dmg)
-                bot_life = bot_life - dmg_chosen
+                self.bot_life = self.bot_life - dmg_chosen
                 self.playerGameStatus()
                 print("You shot your opponent with a banana pistol, they lost " + str(dmg_chosen) + " HP.")
             if decision == 3:
@@ -117,19 +117,17 @@ class Game:
                 print("The wind blew away all the cards in your opponent's hands.")
 
     def botGamble(self): #bot gamble
-        global player_life
-        global bot_life
         decision = random.randint(1, 6)
         if decision == 1:
             dmg = [1000, 2000, 3000, 4000]
             dmg_chosen = random.choice(dmg)
-            player_life = player_life - dmg_chosen
+            self.player_life = self.player_life - dmg_chosen
             self.botGamesStatus()
             print("Your opponent shot themselves in the foot and lost " + str(dmg_chosen) + " HP.")
         if decision == 2:
             dmg = [1000, 2000]
             dmg_chosen = random.choice(dmg)
-            bot_life = bot_life - dmg_chosen
+            self.bot_life = self.bot_life - dmg_chosen
             self.botGamesStatus()
             print("You got shot with a banana pistol and lost " + str(dmg_chosen) + " HP.")
         if decision == 3:
@@ -218,67 +216,65 @@ class Game:
                 break
             print("ERROR: item not found.")
         if len(self.bot_field) > 0:
-            global bot_life
-            global player_life
+            self.bot_life
+            self.player_life
             random_monster = random.choice(self.bot_field)
             if int(card.attack) > int(random_monster.defense):
                 self.bot_field.remove(random_monster)
                 dmg = card.attack - random_monster.defense
-                bot_life = int(bot_life) - int(dmg)
+                self.bot_life = int(self.bot_life) - int(dmg)
                 print(card.name + " attacked " + random_monster.name + ". Your opponent lost " + str(dmg) + " HP.")
             if int(card.attack) < int(random_monster.defense):
                 self.player_field.remove(card)
                 dmg = int(random_monster.defense) - int(card.attack)
-                player_life = int(player_life) - int(dmg)
+                self.player_life = int(self.player_life) - int(dmg)
                 print(card.name + " attacked " + random_monster.name + ". Attack unsuccessful, you lost " + str(dmg) + " HP.")
             if int(card.attack) == int(random_monster.defense):
-                player_life = int(player_life) - 1000
-                bot_life = int(bot_life) - 1000
+                self.player_life = int(self.player_life) - 1000
+                self.bot_life = int(self.bot_life) - 1000
                 self.bot_field.remove(random_monster)
                 self.player_field.remove(card)
                 print(card.name + " attacked " + random_monster.name + ". Attack unsuccessful, both monsters have fainted.")
         else:
-            bot_life = int(bot_life) - int(card.attack)
+            self.bot_life = int(self.bot_life) - int(card.attack)
             print("You used " + card.name + " to attack your opponent directly.")
 
 
     def botAttack(self): #bot attack
-        global bot_life
-        global player_life
         highest_attack_obj = max(self.bot_field, key=lambda x: x.attack)
         if len(self.player_field) > 0:
             lowest_defense_obj = min(self.player_field, key=lambda x: x.defense)
-        if highest_attack_obj.attack > lowest_defense_obj.defense:
-            dmg = highest_attack_obj.attack - lowest_defense_obj.defense
-            self.player_field.remove(lowest_defense_obj)
-            player_life = int(player_life) - int(dmg)
-            self.botGamesStatus()
-            print(highest_attack_obj.name + " attacked " + lowest_defense_obj.name + ". You have lost " + str(dmg) + " HP.")
-        if highest_attack_obj.attack < lowest_defense_obj.defense:
-            dmg = lowest_defense_obj.defense - highest_attack_obj.attack
-            bot_life = int(bot_life) - int(dmg)
-            self.bot_field.remove(highest_attack_obj)
-            self.botGamesStatus()
-            print(highest_attack_obj.name + " attacked " + lowest_defense_obj.name + ". Attack unsuccesessful, your opponent lost " + str(dmg) + " HP.")
-        if highest_attack_obj.attack == lowest_defense_obj.defense:
-            self.bot_field.remove(highest_attack_obj)
-            self.player_field.remove(lowest_defense_obj)
-            self.botGamesStatus()
-            print(highest_attack_obj.name + " attacked " + lowest_defense_obj.name + ". Attack unsuccessful, both monsters have fainted.")
-            player_life = int(player_life) - 1000
-            bot_life = int(bot_life) - 1000
+            if lowest_defense_obj is not None and highest_attack_obj.attack > lowest_defense_obj.defense:
+                dmg = highest_attack_obj.attack - lowest_defense_obj.defense
+                self.player_field.remove(lowest_defense_obj)
+                self.player_life = int(self.player_life) - int(dmg)
+                self.botGamesStatus()
+                print(highest_attack_obj.name + " attacked " + lowest_defense_obj.name + ". You have lost " + str(dmg) + " HP.")
+            if lowest_defense_obj is not None and highest_attack_obj.attack < lowest_defense_obj.defense:
+                dmg = lowest_defense_obj.defense - highest_attack_obj.attack
+                self.bot_life = int(self.bot_life) - int(dmg)
+                self.bot_field.remove(highest_attack_obj)
+                self.botGamesStatus()
+                print(highest_attack_obj.name + " attacked " + lowest_defense_obj.name + ". Attack unsuccesessful, your opponent lost " + str(dmg) + " HP.")
+            if lowest_defense_obj is not None and highest_attack_obj.attack == lowest_defense_obj.defense:
+                self.bot_field.remove(highest_attack_obj)
+                self.player_field.remove(lowest_defense_obj)
+                self.botGamesStatus()
+                print(highest_attack_obj.name + " attacked " + lowest_defense_obj.name + ". Attack unsuccessful, both monsters have fainted.")
+                self.player_life = int(self.player_life) - 1000
+                self.bot_life = int(self.bot_life) - 1000
         else:
-            player_life = int(player_life) - int(highest_attack_obj.attack)
+            self.player_life = int(self.player_life) - int(highest_attack_obj.attack)
             print(highest_attack_obj.name + " attacked you directly, you have lost " + str(highest_attack_obj.attack) + " HP.")
         
     def playerDeath(self):
-        if player_life <= 0:
+        if self.player_life <= 0:
             self.clear_screen()
             print("Your opponent has won!")
             time.sleep(500)
 
     def botDeath(self):
-        if bot_life <= 0:
+        if self.bot_life <= 0:
             self.clear_screen()
             print("You won!")
             time.sleep(500)
@@ -297,8 +293,8 @@ class Game:
         time.sleep(10)
 
 
+    def startGame(self):
         self.clear_screen() #PHASE ONE
-
         if self.average_player_speed > self.average_bot_speed: #phase one
             print("You may start, as you've drawn a faster hand.")
             time.sleep(2)
@@ -424,9 +420,9 @@ class Game:
                         break
                     if len(self.bot_hand) == 0:
                         continue
-                time.sleep(2)
+            time.sleep(2)
 
       
 
 game = Game()
-
+game.startGame()
