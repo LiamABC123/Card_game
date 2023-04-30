@@ -214,6 +214,8 @@ def create_gui():
         button_8.bind("<Leave>", switch_button_image_back_8)
         # define function to exit the GUI
         # bind the button click event to exit_gui function
+
+
         button_8.bind("<Button-1>", clear_gui_1)
 
 
@@ -224,7 +226,7 @@ def create_gui():
         button_9 = tk.Button(root, image=button_image_normal_9, width=100, height=103, bd=0, relief="sunken", highlightthickness=0, activebackground="white")
 
         # reposition the button and place it on the window
-        button_9.place(x=69, y=464, anchor="nw")
+        button_9.place(x=625, y=464, anchor="nw")
 
         # define function to switch button image on mouse hover
         def switch_button_image_9(event):
