@@ -1,4 +1,3 @@
-import random
 import time
 import tkinter as tk
 
@@ -50,12 +49,11 @@ def create_gui():
         button.config(image=button_image_normal)
 
 
-    def clear_gui_1(event):
+    def clear_gui_1(event): # action after clicking "play"
         # destroy all buttons
         button.destroy()
         button_2.destroy()
         button_3.destroy()
-
         # change background image
         bg_image = tk.PhotoImage(file="background_ingame.png")
         bg_label.config(image=bg_image)
@@ -68,7 +66,7 @@ def create_gui():
         button_4 = tk.Button(root, image=button_image_normal_4, width=100, height=103, bd=0, relief="sunken", highlightthickness=0, activebackground="white")
 
         # reposition the button and place it on the window
-        button_4.place(x=47, y=474, anchor="nw")
+        button_4.place(x=138, y=469, anchor="nw")
 
         # define function to switch button image on mouse hover
         def switch_button_image_4(event):
@@ -81,13 +79,104 @@ def create_gui():
         button_4.bind("<Enter>", switch_button_image_4)
         button_4.bind("<Leave>", switch_button_image_back_4)
 
+
+
+
+
+
+
+        button_image_normal_5 = tk.PhotoImage(file="place_button.png")
+        button_image_hover_5 = tk.PhotoImage(file="place_button_hover.png")
+
+        # create a button with the normal image and resize it
+        button_5 = tk.Button(root, image=button_image_normal_5, width=100, height=103, bd=0, relief="sunken", highlightthickness=0, activebackground="white")
+
+        # reposition the button and place it on the window
+        button_5.place(x=278, y=469, anchor="nw")
+
+        # define function to switch button image on mouse hover
+        def switch_button_image_5(event):
+            button_5.config(image=button_image_hover_5)
+
+        def switch_button_image_back_5(event):
+            button_5.config(image=button_image_normal_5)
+
+        # bind the button hover events to switch_button_image function
+        button_5.bind("<Enter>", switch_button_image_5)
+        button_5.bind("<Leave>", switch_button_image_back_5)
+        # define function to exit the GUI
+        def exit_gui(event):
+            time.sleep(1)
+            root.destroy()
+
+
+
+
+
+
+
+        button_5.bind("<Button-1>", exit_gui)
+
+        button_image_normal_6 = tk.PhotoImage(file="gamble_button.png")
+        button_image_hover_6 = tk.PhotoImage(file="gamble_button_hover.png")
+
+        # create a button with the normal image and resize it
+        button_6 = tk.Button(root, image=button_image_normal_6, width=100, height=103, bd=0, relief="sunken", highlightthickness=0, activebackground="white")
+
+        # reposition the button and place it on the window
+        button_6.place(x=418, y=469, anchor="nw")
+
+        # define function to switch button image on mouse hover
+        def switch_button_image_6(event):
+            button_6.config(image=button_image_hover_6)
+
+        def switch_button_image_back_6(event):
+            button_6.config(image=button_image_normal_6)
+
+        # bind the button hover events to switch_button_image function
+        button_6.bind("<Enter>", switch_button_image_6)
+        button_6.bind("<Leave>", switch_button_image_back_6)
         # define function to exit the GUI
         def exit_gui(event):
             time.sleep(1)
             root.destroy()
         
         # bind the button click event to exit_gui function
-        button_4.bind("<Button-1>", exit_gui) ##########################################################################
+        button_6.bind("<Button-1>", exit_gui)
+        
+
+
+
+
+
+
+
+        button_image_normal_7 = tk.PhotoImage(file="draw_button.png")
+        button_image_hover_7 = tk.PhotoImage(file="draw_button_hover.png")
+
+        # create a button with the normal image and resize it
+        button_7 = tk.Button(root, image=button_image_normal_7, width=100, height=103, bd=0, relief="sunken", highlightthickness=0, activebackground="white")
+
+        # reposition the button and place it on the window
+        button_7.place(x=558, y=469, anchor="nw")
+
+        # define function to switch button image on mouse hover
+        def switch_button_image_7(event):
+            button_7.config(image=button_image_hover_7)
+
+        def switch_button_image_back_7(event):
+            button_7.config(image=button_image_normal_7)
+
+        # bind the button hover events to switch_button_image function
+        button_7.bind("<Enter>", switch_button_image_7)
+        button_7.bind("<Leave>", switch_button_image_back_7)
+        # define function to exit the GUI
+        def exit_gui(event):
+            time.sleep(1)
+            root.destroy()
+        
+        # bind the button click event to exit_gui function
+        button_7.bind("<Button-1>", exit_gui)
 
     def clear_gui_2(event):
         # destroy all buttons
@@ -104,6 +193,69 @@ def create_gui():
         text_widget.config(state="disabled")
         text_widget.pack(fill="both", expand=True)
 
+        button_image_normal_8 = tk.PhotoImage(file="play_button.png")
+        button_image_hover_8 = tk.PhotoImage(file="play_button_hover.png")
+
+        # create a button with the normal image and resize it
+        button_8 = tk.Button(root, image=button_image_normal_8, width=100, height=103, bd=0, relief="sunken", highlightthickness=0, activebackground="white")
+
+        # reposition the button and place it on the window
+        button_8.place(x=69, y=464, anchor="nw")
+
+        # define function to switch button image on mouse hover
+        def switch_button_image_8(event):
+            button_8.config(image=button_image_hover_8)
+
+        def switch_button_image_back_8(event):
+            button_8.config(image=button_image_normal_8)
+
+        # bind the button hover events to switch_button_image function
+        button_8.bind("<Enter>", switch_button_image_8)
+        button_8.bind("<Leave>", switch_button_image_back_8)
+        # define function to exit the GUI
+        # bind the button click event to exit_gui function
+        button_8.bind("<Button-1>", clear_gui_1)
+
+
+        button_image_normal_9 = tk.PhotoImage(file="exit_button.png")
+        button_image_hover_9 = tk.PhotoImage(file="exit_button_hover.png")
+
+        # create a button with the normal image and resize it
+        button_9 = tk.Button(root, image=button_image_normal_9, width=100, height=103, bd=0, relief="sunken", highlightthickness=0, activebackground="white")
+
+        # reposition the button and place it on the window
+        button_9.place(x=69, y=464, anchor="nw")
+
+        # define function to switch button image on mouse hover
+        def switch_button_image_9(event):
+            button_9.config(image=button_image_hover_9)
+
+        def switch_button_image_back_9(event):
+            button_9.config(image=button_image_normal_9)
+
+        # bind the button hover events to switch_button_image function
+        button_9.bind("<Enter>", switch_button_image_9)
+        button_9.bind("<Leave>", switch_button_image_back_9)
+        # define function to exit the GUI
+        def exit_gui(event):
+            time.sleep(1)
+            root.destroy()
+        
+        # bind the button click event to exit_gui function
+        button_9.bind("<Button-1>", exit_gui)    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     # bind the button hover events to switch_button_image function
     button.bind("<Enter>", switch_button_image)
     button.bind("<Leave>", switch_button_image_back)
